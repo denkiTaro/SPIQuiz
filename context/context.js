@@ -1,6 +1,2 @@
-'use strict';
 console.log('test by context.js')
-
-export default pageContext = {
-    s: 's'
-}
+import { a } from "../page/page.js";

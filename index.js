@@ -1,4 +1,2 @@
-'use strict';
-console.log('test by index.js');
 
-'test'
+console.log('test by index.js');
