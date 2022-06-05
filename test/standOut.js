@@ -1,5 +1,3 @@
-'use strict';
-console.log('test by standOut.js')
 
 const headDOM = document.getElementsByTagName('head')[0];
 const styleDOM = document.createElement('style');
