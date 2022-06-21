@@ -1,7 +1,7 @@
 
 /**
- * @param pageName 取得するhtmlのbody or HTML に id = [page]Page を設定してください
- * @param parentDOM pageNameDOM を収納するDOM
+ * @pageName 取得するhtmlのbody or HTML に id = [page]Page を設定してください
+ * @parentDOM pageNameDOM を収納するDOM
  * @returns promise
  */
 function reduxPage( pageName , parentDOM ) {
