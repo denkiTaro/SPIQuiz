@@ -4,7 +4,7 @@
  * @param parentDOM pageNameDOM を収納するDOM
  * @returns promise
  */
-export function reduxPage( pageName , parentDOM ) {
+function reduxPage( pageName , parentDOM ) {
     if( !pageName || !parentDOM )throw '引数が設定されていません';
     const path = `../src/view/page/${pageName}/${pageName}.html`;
     return fetch( path )
@@ -14,3 +14,5 @@ export function reduxPage( pageName , parentDOM ) {
         return parentDOM.appendChild( nowDOM );
     });
 }
+
+export default reduxPage;
