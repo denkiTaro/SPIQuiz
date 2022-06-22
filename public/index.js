@@ -1,6 +1,5 @@
 import '../src/logic/index.js';
 import '../src/redux/redux.js';
-import redux from '../src/redux/redux.js';
 
 
 console.time('index');
@@ -14,5 +13,6 @@ const embedContainerDOM = document.getElementById('embeddingContainer');
  */
 const pageNameArray = [ 'start' , 'set' , 'solve' , 'answer' , 'result' ];
 Object.freeze( pageNameArray );
+
 
 console.timeEnd('index');
