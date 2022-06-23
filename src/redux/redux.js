@@ -11,9 +11,6 @@ class Redux {
         this._path = `/src/view/page/${this._pageName}/${this._pageName}.html`;
     }
 
-    /**
-     * @returns promise
-     */
     reduxPage() {
         return fetch( this._path )
         .then((e) => e.text() )
@@ -27,6 +24,5 @@ class Redux {
         throw '後で追加予定'
     }
 }
-
 
 export default Redux;
