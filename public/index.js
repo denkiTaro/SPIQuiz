@@ -1,5 +1,4 @@
-import '../src/logic/index.js';
-import Page from '../src/logic/index.js';
+import Page from '../src/logic/page.js';
 import '../src/redux/redux.js';
 
 

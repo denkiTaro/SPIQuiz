@@ -1,4 +1,3 @@
-import logics from './logics.js'
 import Redux from '../redux/redux.js';
 
 class Page {
@@ -15,8 +14,10 @@ class Page {
 
     /**
      * 呼び出されるごとに 0~pageNameArray.length まで自動で更新
+     * @skipValue +何ページ先に飛ばすか、初期値は0
      */
-    nextPage() {
+    nextPage( skipValue = 0 ) {
+        this._i = this._i + skipValue;
         new Redux( this._pageNameArray[this._i] , this._parentDOM ).reduxPage()
         .then( ()=>{
             if( this._parentDOM.childElementCount >= 1 )this._parentDOM.firstChild.remove();
