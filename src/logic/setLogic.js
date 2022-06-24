@@ -1,7 +1,15 @@
+import pageContext from '../context/context.js';
 
-function setStart() {
-    console.log('alsdkjsdlkfj');
+const logics = {}
+
+function setStartLogic() {
+    const startDOM = document.getElementById('startPage');
+    const inputDOM = startDOM.getElementsByTagName('input')[0];
+    inputDOM.addEventListener( 'click' , () => {
+        pageContext.warehouse.adjustedPage.nextPage();
+    } )
 }
-setInterval(() => {
-    console.log('alsdkjflskdjf');
-}, 1000);
+logics['start'] = setStartLogic;
+
+Object.freeze( logics );
+export default logics;
