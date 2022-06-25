@@ -1,27 +1,27 @@
 
 class Redux {
     /**
-     * @pageName 取得するhtmlのbody or HTML に id = [page]Page を設定してください
+     * @pageName 取得した最上位要素に id = [page]Page を設定します
      * @parentDOM 埋め込みたい要素の親要素
+     * pageNameのIDがあることで追加後の削除を容易にします
      */
     constructor( pageName , parentDOM ) {
-        if( typeof pageName !== 'string' || !(parentDOM instanceof HTMLElement) )throw 'Reduxの引数が設定されていません';
+        if( parentDOM instanceof HTMLElement == false )throw 'Reduxの引数が設定されていません';
         this._pageName = pageName;
         this._parentDOM = parentDOM;
-        this._path = `/src/view/page/${this._pageName}/${this._pageName}.html`;
     }
 
-    reduxPage() {
-        return fetch( this._path )
+    /**
+     * @path (reduxPageでは必須) ページまでのルートpath ex)/src/view/page/OO/OO.html
+     */
+    reduxPageByPath( path ) {
+        return fetch( path )
         .then((e) => e.text() )
         .then((text) => {
-            const childDOM = new DOMParser().parseFromString(text,'text/html').getElementById(`${this._pageName}Page`);
+            const childDOM = new DOMParser().parseFromString(text,'text/html').firstElementChild;
+            if( this._pageName )childDOM.id = `${this._pageName}Page`;
             return this._parentDOM.appendChild( childDOM );
         });
-    }
-
-    reduxStyle() {
-        throw '後で追加予定'
     }
 }
 
