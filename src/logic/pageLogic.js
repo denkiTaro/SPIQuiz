@@ -8,10 +8,15 @@ function createScriptElement() {
     return addingChildDOM;
 }
 
+
+/**
+ * @static
+ * getPageByPath
+ */
 class Page {
     /**
      * @pageNameArray ページの名前を順番に並べた配列
-     * @parentDOM 取得されたDOMの子要素に変更を加えます
+     * @parentDOM 取得された要素を格納する場所
      */
     constructor( pageNameArray , parentDOM ) {
         if( !(Array.isArray(pageNameArray)) || !(parentDOM instanceof HTMLElement) )throw 'Pageの引数が設定されていません';
@@ -19,14 +24,15 @@ class Page {
         this._pageNameArray = pageNameArray;
         this._parentDOM = parentDOM;
     }
-    
+
+
     /**
      * 呼び出されるごとに 0~pageNameArray.length まで自動で更新
      * 動作の要素も同時に追加更新
      * @skipValue +何ページ先に飛ばすか、初期値は0
      * ファイル構造 /src/view/page/[pageName]/[pageName].html にしてください
      */
-    nextPageByPath( skipValue = 0 ) {
+    loadNextPageWithPath( skipValue = 0 ) {
         this._i = this._i + skipValue;
         const path = `/src/view/page/${this._pageNameArray[this._i]}/${this._pageNameArray[this._i]}.html`;
 
@@ -34,7 +40,7 @@ class Page {
         .then( ()=>{
             if( this._parentDOM.childElementCount >= 1 )this._parentDOM.firstChild.remove();
             this._parentDOM.firstChild.appendChild( createScriptElement() );
-            const setLogic = logics[this._pageNameArray[this._i - 1]];
+            const setLogic = logics[`${this._pageNameArray[this._i - 1]}Page`];
             if( setLogic )setLogic();
         });
 

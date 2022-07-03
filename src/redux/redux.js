@@ -1,4 +1,8 @@
 
+/**
+ * @static
+ * reduxPage
+ */
 class Redux {
     /**
      * @pageName 取得した最上位要素に id = [page]Page を設定します
@@ -12,7 +16,9 @@ class Redux {
     }
 
     /**
-     * @path (reduxPageでは必須) ページまでのルートpath ex)/src/view/page/OO/OO.html
+     * @path (reduxPageでは必須) ページまでのルートpath
+     * /src/view/page/[page]/[page].html のようにファイルを設置し
+     * reduxPageByPathに /src/... を代入してください
      */
     reduxPageByPath( path ) {
         return fetch( path )

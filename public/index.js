@@ -1,5 +1,4 @@
 import PageLogic from '../src/logic/pageLogic.js';
-import '../src/redux/redux.js';
 import pageContext from '../src/context/context.js';
 
 /**
@@ -10,7 +9,7 @@ const embedContainerDOM = document.getElementById('embeddingContainer');
 /**
  * 順番通り 書き換え不可
  */
-const pageNameArray = [ 'start' , 'set' , 'solve' , 'answer' , 'result' ];
+const pageNameArray = [ 'start' , 'set' , 'solve' , 'result' ];
 Object.freeze( pageNameArray );
 
 const mainPage =
@@ -18,6 +17,6 @@ new PageLogic(
     pageNameArray,
     embedContainerDOM,
 );
-mainPage.nextPageByPath(2);
+mainPage.loadNextPageWithPath();
 pageContext.updateContext( 'mainPage' , mainPage );
 
