@@ -2,8 +2,9 @@ import pageContext from '../context/context.js';
 import Redux from '../redux/redux.js';
 
 
-function createAnswerPart( parentDOM , ID = '' ) {
+function createAnswerPart( parentDOM , ID = 'parts' ) {
     if( parentDOM instanceof HTMLElement == false )throw 'createAnswerPartの引数が設定されていません';
+    if( document.getElementById(ID+'Page') )document.getElementById(ID+'Page').remove();
     return new Redux( ID , parentDOM ).reduxPageByPath( '/src/view/page/answer/answer.html' );
 }
 
@@ -64,20 +65,19 @@ const logics = {
         const solvePage       = logics.getDOMbyID('solvePage');
         const nextButton      = document.createElement('button');
         nextButton.textContent= '結果を見る';
-
+        
         logics.setNextPageInPath(nextButton);
-
         function viewAndDelete() {
             buttonsContainer.remove();
             solvePage.appendChild( nextButton );
         }
+        
         buttonsContainer.addEventListener( 'click' , function() {
             const QValue = pageContext.warehouse.QValue;
             pageContext.updateContext( 'QValue' , QValue - 1 );
             createAnswerPart( solvePage )
             .then( function(e) {
                 if( QValue <= 1 )viewAndDelete();
-                console.log( solvePage );
             } )
         })
     },
