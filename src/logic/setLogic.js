@@ -2,10 +2,18 @@ import pageContext from '../context/context.js';
 import Redux from '../redux/redux.js';
 
 
-function createAnswerPart( parentDOM , ID = 'parts' ) {
-    if( parentDOM instanceof HTMLElement == false )throw 'createAnswerPartの引数が設定されていません';
+/**
+ * @parentDOM 格納する要素
+ * @ans 答え
+ * @ID 要素のID
+ */
+function reduxAnswerPart( parentDOM , ans = '-' , ID = 'parts' ) {
+    if( parentDOM instanceof HTMLElement == false )throw 'reduxAnswerPartの引数が設定されていません';
     if( document.getElementById(ID+'Page') )document.getElementById(ID+'Page').remove();
-    return new Redux( ID , parentDOM ).reduxPageByPath( '/src/view/page/answer/answer.html' );
+    return new Redux( ID , parentDOM ).reduxPageByPath( '/src/view/page/answer/answer.html' )
+    .then( function(){
+        document.getElementById('rightChoice').textContent = ans;
+    })
 }
 
 
@@ -45,10 +53,10 @@ const logics = {
      * セレクタで選択された属性を継承する
      */
     setPage() {
-        const startButton= logics.getDOMbyID('setStartButton');
-        const QValue     = document.SSelects.SValue.value;
+        const startButton   = logics.getDOMbyID('setStartButton');
+        const numOfQuestions= document.SSelects.SValue.value;
         function f() {
-            pageContext.updateContext( 'QValue' , QValue );
+            pageContext.updateContext( 'numOfQuestions' , numOfQuestions );
             console.log( pageContext.warehouse );
         }
         startButton.addEventListener( 'click' , f );
@@ -65,21 +73,33 @@ const logics = {
         const solvePage       = logics.getDOMbyID('solvePage');
         const nextButton      = document.createElement('button');
         nextButton.textContent= '結果を見る';
-        
+        pageContext.updateContext( 'ansArr' , [] );
+        // 問題を設定した数説いたときに出るボタン
         logics.setNextPageInPath(nextButton);
+
+        // 選択肢を消して次に進むボタン表示
         function viewAndDelete() {
             buttonsContainer.remove();
             solvePage.appendChild( nextButton );
         }
-        
-        buttonsContainer.addEventListener( 'click' , function() {
-            const QValue = pageContext.warehouse.QValue;
-            pageContext.updateContext( 'QValue' , QValue - 1 );
-            createAnswerPart( solvePage )
-            .then( function(e) {
-                if( QValue <= 1 )viewAndDelete();
-            } )
-        })
+        const choiceArray = ['A','B','C','D'];
+        for( const i in choiceArray ) {
+            const buttonName = choiceArray[i];
+            // 設定した回数だけ問題を解かせる
+            buttonsContainer[buttonName].addEventListener( 'click' , function(e) {
+                const numOfQuestions = pageContext.warehouse.numOfQuestions;
+                pageContext.updateContext( 'numOfQuestions' , numOfQuestions - 1 );
+                // 解説パーツをredux
+                reduxAnswerPart( solvePage )
+                .then( function(e) {
+                    if( numOfQuestions <= 1 )viewAndDelete();
+                } )
+                const ansArr = pageContext.warehouse.ansArr;
+                const ans = e.target.name;
+                ansArr.push( ans )
+                pageContext.updateContext( 'ansArr' , ansArr );
+            })
+        }
     },
 
 

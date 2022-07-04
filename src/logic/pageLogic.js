@@ -9,11 +9,7 @@ function createScriptElement() {
 }
 
 
-/**
- * @static
- * getPageByPath
- */
-class Page {
+class PageLogic {
     /**
      * @pageNameArray ページの名前を順番に並べた配列
      * @parentDOM 取得された要素を格納する場所
@@ -50,4 +46,4 @@ class Page {
     }
 }
 
-export default Page;
+export default PageLogic;
