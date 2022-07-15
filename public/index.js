@@ -1,5 +1,6 @@
 import PageLogic from '../src/logic/pageLogic.js';
 import pageContext from '../src/context/context.js';
+import '../src/service/firebase/firebase.js';
 
 /**
  * 取得して代入する要素

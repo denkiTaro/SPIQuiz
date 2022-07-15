@@ -5,6 +5,7 @@ function createScriptElement() {
     const addingChildDOM = document.createElement('script');
     addingChildDOM.src  = '/src/logic/setLogic.js';
     addingChildDOM.type = 'module';
+
     return addingChildDOM;
 }
 
@@ -14,8 +15,9 @@ class PageLogic {
      * @pageNameArray ページの名前を順番に並べた配列
      * @parentDOM 取得された要素を格納する場所
      */
-    constructor( pageNameArray , parentDOM ) {
-        if( !(Array.isArray(pageNameArray)) || !(parentDOM instanceof HTMLElement) )throw 'Pageの引数が設定されていません';
+    constructor(pageNameArray, parentDOM) {
+        if(!(Array.isArray(pageNameArray)) || !(parentDOM instanceof HTMLElement))
+            throw 'Pageの引数が設定されていません';
         this._i = 0;
         this._pageNameArray = pageNameArray;
         this._parentDOM = parentDOM;

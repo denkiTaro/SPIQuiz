@@ -1,5 +1,3 @@
-
-
 class Context {
     /**
      * Context.warehouseに値を保存する
@@ -19,5 +17,5 @@ class Context {
 }
 
 const pageContext = new Context();
+
 export default pageContext;
-export {Context};
