@@ -26,7 +26,8 @@ class Redux {
         .then((text) => {
             const childDOM = new DOMParser().parseFromString(text,'text/html').firstElementChild;
             if( this._pageName )childDOM.id = `${this._pageName}Page`;
-            return this._parentDOM.appendChild( childDOM );
+            // return this._parentDOM.appendChild( childDOM );
+            return this._parentDOM.insertAdjacentHTML( 'afterbegin' , childDOM );
         });
     }
 }

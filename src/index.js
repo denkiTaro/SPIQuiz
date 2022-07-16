@@ -1,6 +1,8 @@
-import PageLogic from '../src/logic/pageLogic.js';
-import pageContext from '../src/context/context.js';
-import '../src/service/firebase/firebase.js';
+// import PageLogic from '../src/logic/pageLogic.js';
+import PageLogic from './logic/pageLogic.js';
+// import pageContext from '../src/context/context.js';
+import pageContext from './context/context.js';
+import './service/firebase/firebase.js';
 
 /**
  * 取得して代入する要素
@@ -20,4 +22,3 @@ new PageLogic(
 );
 mainPage.loadNextPageWithPath();
 pageContext.updateContext( 'mainPage' , mainPage );
-
