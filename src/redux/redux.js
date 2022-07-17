@@ -1,12 +1,9 @@
 
-/**
- * @static
- * reduxPage
- */
+
 class Redux {
     /**
-     * @pageName 取得した最上位要素に id = [page]Page を設定します
-     * @parentDOM 埋め込みたい要素の親要素
+     * @param {string} pageName 取得した最上位要素に id = [page]Page を設定します
+     * @param {HTMLElement} parentDOM 埋め込みたい要素の親要素
      * pageNameのIDがあることで追加後の削除を容易にします
      */
     constructor( pageName , parentDOM ) {
@@ -16,7 +13,7 @@ class Redux {
     }
 
     /**
-     * @path (reduxPageでは必須) ページまでのルートpath
+     * @param {'/src/view/page/\**\/\**.html'} path (reduxPageでは必須) ページまでのルートpath
      * /src/view/page/[page]/[page].html のようにファイルを設置し
      * reduxPageByPathに /src/... を代入してください
      */
@@ -25,9 +22,8 @@ class Redux {
         .then((e) => e.text() )
         .then((text) => {
             const childDOM = new DOMParser().parseFromString(text,'text/html').firstElementChild;
-            if( this._pageName )childDOM.id = `${this._pageName}Page`;
-            // return this._parentDOM.appendChild( childDOM );
-            return this._parentDOM.insertAdjacentHTML( 'afterbegin' , childDOM );
+            childDOM.id = `${this._pageName}Page`;
+            this._parentDOM.insertAdjacentElement( 'afterbegin' , childDOM );
         });
     }
 }

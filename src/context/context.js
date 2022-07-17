@@ -7,8 +7,8 @@ class Context {
     warehouse = {}
 
     /**
-     * @property context.warehouseのproperty
-     * @value context.warehouse.[property] の値
+     * @param {string} property context.warehouseのproperty
+     * @param {any} value context.warehouse.[property] の値
      */
     updateContext( property , value = null ) {
         if( typeof property != 'string' )throw 'Context.updateContextの引数が設定されていません';

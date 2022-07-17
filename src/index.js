@@ -2,7 +2,7 @@
 import PageLogic from './logic/pageLogic.js';
 // import pageContext from '../src/context/context.js';
 import pageContext from './context/context.js';
-import './service/firebase/firebase.js';
+// import './service/firebase/firebase.js';
 
 /**
  * 取得して代入する要素

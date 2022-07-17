@@ -1,20 +1,10 @@
 import pageContext from '../context/context.js';
-import Redux from '../redux/redux.js';
 
 
-/**
- * @parentDOM 格納する要素
- * @ans 答え
- * @ID 要素のID
- */
-function reduxAnswerPart( parentDOM , ans = '-' , ID = 'parts' ) {
-    if( parentDOM instanceof HTMLElement == false )throw 'reduxAnswerPartの引数が設定されていません';
-    if( document.getElementById(ID+'Page') )document.getElementById(ID+'Page').remove();
-    return new Redux( ID , parentDOM ).reduxPageByPath( '/src/view/page/answer/answer.html' )
-    .then( function(){
-        document.getElementById('rightChoice').textContent = ans;
-    })
-}
+const warehouse = pageContext.warehouse;
+fetch('/src/view/page/answer/answer.html')
+.then( e=>e.text() )
+.then( e=> pageContext.updateContext('ansPartText', new DOMParser().parseFromString(e,'text/html').getElementsByTagName('html')[0] ) );
 
 
 const logics = {
@@ -28,13 +18,14 @@ const logics = {
     },
 
     /**
-     * @DOM 設定したい要素
-     * @type addEventListener([ここ])  (default 'click')
+     * @param {HTMLElement} DOM 設定したい要素
+     * @param { 'click' } type addEventListener([ここ])  (default 'click')
+     * click以外も使用できます
      */
     setNextPageInPath( DOM , type = 'click' ) {
         if( DOM instanceof HTMLElement == false )throw 'setNextPageの引数が設定されていません';
         DOM.addEventListener( type , ()=> {
-            pageContext.warehouse.mainPage.loadNextPageWithPath();
+            warehouse.mainPage.loadNextPageWithPath();
         })
     },
 
@@ -57,7 +48,7 @@ const logics = {
         const numOfQuestions= document.SSelects.SValue.value;
         function f() {
             pageContext.updateContext( 'numOfQuestions' , numOfQuestions );
-            console.log( pageContext.warehouse );
+            console.log( warehouse );
         }
         startButton.addEventListener( 'click' , f );
         logics.setNextPageInPath( startButton );
@@ -77,24 +68,33 @@ const logics = {
         // 問題を設定した数説いたときに出るボタン
         logics.setNextPageInPath(nextButton);
 
-        // 選択肢を消して次に進むボタン表示
+        // 選択肢を消して次に進むボタンを表示
         function viewAndDelete() {
-            buttonsContainer.remove();
+            buttonsContainer.style.display = 'none';
             solvePage.appendChild( nextButton );
         }
+
+        /**
+         * @param {HTMLElement} parentDOM 格納する要素
+         * @param { 'A'|'B'|'C'|'D' } ans 答え
+         */
+        function reduxAnswerPart( parentDOM , ans = '-' ) {
+            const childDOM = warehouse.ansPartText;
+            childDOM.textContent = ans;
+            parentDOM.appendChild( childDOM );
+        }
         const choiceArray = ['A','B','C','D'];
+        // ボタンそれぞれにaddEventListener
         for( const i in choiceArray ) {
             const buttonName = choiceArray[i];
             // 設定した回数だけ問題を解かせる
             buttonsContainer[buttonName].addEventListener( 'click' , function(e) {
-                const numOfQuestions = pageContext.warehouse.numOfQuestions;
+                const numOfQuestions = warehouse.numOfQuestions;
                 pageContext.updateContext( 'numOfQuestions' , numOfQuestions - 1 );
-                // 解説パーツをredux
-                reduxAnswerPart( solvePage )
-                .then( function(e) {
-                    if( numOfQuestions <= 1 )viewAndDelete();
-                } )
-                const ansArr = pageContext.warehouse.ansArr;
+                // 回答パーツをredux
+                reduxAnswerPart( solvePage );
+                if( numOfQuestions <= 1 || !numOfQuestions )viewAndDelete();
+                const ansArr = warehouse.ansArr;
                 const ans = e.target.name;
                 ansArr.push( ans )
                 pageContext.updateContext( 'ansArr' , ansArr );
@@ -105,6 +105,8 @@ const logics = {
 
     resultPage() {
         const resultPage = logics.getDOMbyID('resultPage');
+        const returnButton = resultPage.getElementsByTagName('button')[0];
+        logics.setNextPageInPath( returnButton );
     },
 }
 
