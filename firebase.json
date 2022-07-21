@@ -9,7 +9,9 @@
       "src/context/**",
       "src/logic/**",
       "src/redux/**",
-      "src/service/**"
+      "src/service/**",
+
+      "src/store/**"
     ]
   }
 }

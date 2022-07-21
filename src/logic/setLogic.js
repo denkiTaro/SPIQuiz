@@ -48,7 +48,6 @@ const logics = {
         const numOfQuestions= document.SSelects.SValue.value;
         function f() {
             pageContext.updateContext( 'numOfQuestions' , numOfQuestions );
-            console.log( warehouse );
         }
         startButton.addEventListener( 'click' , f );
         logics.setNextPageInPath( startButton );
