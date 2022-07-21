@@ -2,9 +2,14 @@
 {
     "q": "問題文",
     "a": "回答",
-    "attr": "L",
-    ↑ L or N ( language , non-language )
+    "attr": ["L","J"]
 }
 
+attr (配列順)
 L 言語問題
 N 非言語問題
+,
+J 日本語
+E 英語
+H ひらがなのみ
+N 数値
