@@ -1,10 +1,8 @@
 import pageContext from '../context/context.js';
+import {createQAndAs} from '../store/questions.js';
 
 
 const warehouse = pageContext.warehouse;
-fetch('/src/view/page/answer/answer.html')
-.then( e=>e.text() )
-.then( e=> pageContext.updateContext('ansPartText', new DOMParser().parseFromString(e,'text/html').getElementsByTagName('html')[0] ) );
 
 
 const logics = {
@@ -73,6 +71,8 @@ const logics = {
             solvePage.appendChild( nextButton );
         }
 
+        const qAndAs = createQAndAs( warehouse.numOfQuestions * 1 );
+
         /**
          * @param {HTMLElement} parentDOM 格納する要素
          * @param { 'A'|'B'|'C'|'D' } ans 答え
@@ -88,7 +88,7 @@ const logics = {
             const buttonName = choiceArray[i];
             // 設定した回数だけ問題を解かせる
             buttonsContainer[buttonName].addEventListener( 'click' , function(e) {
-                const numOfQuestions = warehouse.numOfQuestions;
+                const numOfQuestions = warehouse.numOfQuestions * 1;
                 pageContext.updateContext( 'numOfQuestions' , numOfQuestions - 1 );
                 // 回答パーツをredux
                 reduxAnswerPart( solvePage );
