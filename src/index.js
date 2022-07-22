@@ -1,6 +1,7 @@
 import PageLogic from './logic/pageLogic.js';
 import pageContext from './context/context.js';
 import './service/firebase/firebase.js';
+import './store/questions.js';
 
 
 /**

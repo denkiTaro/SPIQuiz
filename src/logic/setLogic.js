@@ -1,5 +1,4 @@
 import pageContext from '../context/context.js';
-import {createQAndAs} from '../store/questions.js';
 
 
 const warehouse = pageContext.warehouse;
@@ -71,7 +70,7 @@ const logics = {
             solvePage.appendChild( nextButton );
         }
 
-        const qAndAs = createQAndAs( warehouse.numOfQuestions * 1 );
+        // const qAndAs = createQAndAs( warehouse.numOfQuestions * 1 );
 
         /**
          * @param {HTMLElement} parentDOM 格納する要素

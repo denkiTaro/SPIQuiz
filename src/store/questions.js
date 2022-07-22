@@ -1,7 +1,8 @@
-import * as questionsJson from './questions.json';
+import './push.js';
+// import * as questionsJson from './questions.json';
 
-const questions = questionsJson.default;
-const qLength = questions.length;
+// const questions = questionsJson.default;
+// const qLength = questions.length;
 
 /**
  * @param {number} num 出題数
