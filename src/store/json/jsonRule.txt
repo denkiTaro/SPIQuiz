@@ -1,13 +1,9 @@
-<<<<<<< HEAD:src/store/json/jsonRule.txt
 
 [
-=======
->>>>>>> 745a2bf38e924f03414d9ba1cc29ce88eefa68c9:src/store/jsonRule.txt
 {
   {
     "q": "問題文",
     "a": "回答",
-<<<<<<< HEAD:src/store/json/jsonRule.txt
     "attr": "L",
     ↑ L or N ( language , non-language )
 
@@ -16,13 +12,6 @@
 {...},
 {...},
 ]
-=======
-    "attr": ["L","J"]
-  }
-}
-
-attr (配列順)
->>>>>>> 745a2bf38e924f03414d9ba1cc29ce88eefa68c9:src/store/jsonRule.txt
 L 言語問題
 N 非言語問題
 ,
